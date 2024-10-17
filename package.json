@@ -1,0 +1,35 @@
+{
+  "name": "mx.utxj.ti.awos.bienesraices",
+  "version": "1.0.0",
+  "description": "Proyecto de clase para la unidad 2, de la asignatura AWOS utilizando Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ObedGuzmanGuz/BienesRa-ces_230142.git"
+  },
+  "keywords": [
+    "MVC",
+    "Express",
+    "Sequelize",
+    "MySQL",
+    "TailwindCSS",
+    "Nodemon",
+    "Node.js",
+    "PUG",
+    "NodeMailer",
+    "Mailtrap",
+    "JWT"
+  ],
+  "author": "Obed Guzmán Flores",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ObedGuzmanGuz/BienesRa-ces_230142/issues"
+  },
+  "homepage": "https://github.com/ObedGuzmanGuz/BienesRa-ces_230142#readme",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}
