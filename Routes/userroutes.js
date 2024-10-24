@@ -8,16 +8,16 @@ const router=express.Router();
     response.send(`Se esta solicitando buscar al usuario con id: ${request.params.id}`);
 });
 //componentes de una peticion ruta(a donde voy), funcion callback(que hago)
-//Post se utiliza para el envio de datos e info del cliente al server
+//Post-se utiliza para el envio de datos e info del cliente al server
 router.post("/newUser/:name/:email/:password",function(req,res){
     res.send(`Se ha solicitado la creación de un nuevo usuario de nombre: ${req.params.name}, asociado al correo electronico: ${req.params.email}, con la contraseña: ${req.params.password}`)
 })
-//PUT - Se utiliza para la actualizacion total de info del cliente al servidor
+//Put-Se utiliza para la actualizacion total de info del cliente al servidor
 router.put("/replaceUserByEmail/:name/:email/:password", function(a,b){
     b.send(`Se ha solicirtado el reemplazo de toda la información del usuario: ${a.params.name},con correo: ${a.params.email}, y contraseña: ${a.params.password} `)
 //Noo es completamente necesario usar req y res, tambien se pueden usar letras
 })
-//PATCH - Se utiliza para la actualizacion parcial de datos
+//Patch-Se utiliza para la actualizacion parcial de datos
 router.patch("/updatePassword/:email/:newPassword/:newPasswordConfirm",function(request,response){
     const {email,newPassword,passConfirm} = request.params 
     //Desestructuracion de un objeto
@@ -27,7 +27,7 @@ router.patch("/updatePassword/:email/:newPassword/:newPasswordConfirm",function(
         response.send(`Se ha solicitado la actualizacion de la contraseña del usuario con correo: ${email}, con la nueva conbtraseña: ${newPassword}, pero se rechaza el cambio dado que la nueva contraseña y su confirmación no coinciden`)
     }
 });
-//DELETE
+//Delete para eliminar 
 router.delete("/deleteUser/:email",function(req,res){
     res.send(`Se ha solicitado la eliminacion del usuario asociado al correo: ${req.params.email}`)
 })
