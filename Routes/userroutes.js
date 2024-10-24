@@ -1,4 +1,5 @@
-import express, { request, response } from'express'
+import express, { application, request, response } from'express'
+import { formularioLogin, formularioRegister, formularioPasswordRecovery } from '../controllers/usersController.js';
 const router=express.Router();
 //Get se utiliza para lalectura de datos e informacion
 //endpoints: rutas para acceder a las secciones o funciones de nuestra aplicación web
@@ -27,9 +28,28 @@ router.patch("/updatePassword/:email/:newPassword/:newPasswordConfirm",function(
         response.send(`Se ha solicitado la actualizacion de la contraseña del usuario con correo: ${email}, con la nueva conbtraseña: ${newPassword}, pero se rechaza el cambio dado que la nueva contraseña y su confirmación no coinciden`)
     }
 });
+
 //Delete para eliminar 
 router.delete("/deleteUser/:email",function(req,res){
     res.send(`Se ha solicitado la eliminacion del usuario asociado al correo: ${req.params.email}`)
 })
 // en los dos archivos de js se agrega export default router
+// que es un colvat
+
+router.get("/login", function(request,response){
+  response.render('auth/login',{
+   autenticado : true 
+  })
+})
+
+//callbakc
+
+router.get("/login", formularioLogin /*middleware*/)
+
+router.get("/createAccount", formularioRegister )
+router.get("/passwordRecovery", formularioPasswordRecovery )
+
+
+
+
 export default router;

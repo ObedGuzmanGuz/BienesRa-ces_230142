@@ -10,6 +10,16 @@ import express from 'express';
 import generalrouter from'./Routes/generalrouter.js'
 import userroutes from'./Routes/userroutes.js'
 const app = express()
+
+// Configurar Template Engine -PUG
+app.set('view engine', 'pug')
+app.set('views', './views')
+
+
+
+
+
+//
 const port= 3000;
 
 
