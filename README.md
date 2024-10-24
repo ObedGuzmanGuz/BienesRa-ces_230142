@@ -13,6 +13,7 @@ Para poder demostrar y aprender la creacion y consumo de Interfaces de programac
 |---|-----|-----|----|----|
 |8.|17/10/2024|Nuevo Repositorio del Proyecto implementando .gitignore|1| Finalizada|
 |9.|22/10/2024|Creacion de una aplicacion web usando Express|12| Activa|
+|10.|23/10/2024|Operaciones basicas de un API a traves de los Verbos htpp|pendiente| Activa|
 
 
 ### Tech Stack
