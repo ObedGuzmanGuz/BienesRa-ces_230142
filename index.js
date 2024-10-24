@@ -7,8 +7,9 @@
 
 
 import express from 'express';
+import generalrouter from'./Routes/generalrouter.js'
+import userroutes from'./Routes/userroutes.js'
 const app = express()
-
 const port= 3000;
 
 
@@ -18,6 +19,14 @@ console.log(`La aplicacion ha iniciado en el puerto: ${port}`);
 
 });
 
+//Ruta (Routing-enrutamiento para petuiciones)
+//si se coloca otro igual, con el moismo verbo, será ignorado el siguiente
+app.use('/',generalrouter)
+app.use('/usuario',userroutes);
+
+
+
+/*
 //Routing - Enrutamiento para peticiones
 
 app.get("/", function(req,res){
@@ -41,7 +50,7 @@ app.get("/quienEres", function(req,res){
     })
     
 
-// 
+*/ 
 
 
 
