@@ -15,11 +15,12 @@ const app = express()
 app.set('view engine', 'pug')
 app.set('views', './views')
 
+// Carpeta publica de recursos estaticos (assets)
+app.use(express.static('public'));
 
 
 
-
-//
+// Configuramos nuestro servidor web
 const port= 3000;
 
 
