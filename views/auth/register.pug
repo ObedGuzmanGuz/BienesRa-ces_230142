@@ -10,20 +10,20 @@ block contenido
             .bg-white.py-8.px-4-shadow
                 form(action="").space-y-5.px-6
                     div 
-                        label.block.text-sm.uppercase.text-gray-600.mb-2.font-nold Nombre Completo 
+                        label.block.text-sm.uppercase.text-gray-600.mb-2.font-bold Nombre Completo 
                         input#nombre.w-full.px-3.py-2.border.border-gray-300.rounded-xl.placeholder-gray-400(placeholder= "Ingresa Tu nombre con apellidos" type="text" name="nombre_usuario")
                     div 
-                        label.block.text-sm.uppercase.text-gray-600.mb-2.font-nold Correo electronico
+                        label.block.text-sm.uppercase.text-gray-600.mb-2.font-bold Correo electronico
                         input#email.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder= "ej: usuario@gmail.com" type="email" name="correo_usuario")
                     div 
-                        label.block.text-sm.uppercase.text-gray-500.mb-3.font-nold Password
+                        label.block.text-sm.uppercase.text-gray-500.mb-3.font-bold Password
                         input#password.w-full.px-3.py-2.border.border-gray-600.rounded-xl.placeholder-gray-400(placeholder= "minimo de 8 caracteres" type="password" name="pass_usuario")
                     div 
-                        label.block.text-sm.uppercase.text-gray-500.mb-3.font-nold Confirmacion de contraseña
+                        label.block.text-sm.uppercase.text-gray-500.mb-3.font-bold Confirmacion de contraseña
                         input#password-confirm.w-full.px-3.py-2.border.border-gray-600.rounded-md.placeholder-gray-400(placeholder= "minimo de 8 caracteres" type="password" name="pass2_usuario")
-                    .fle.items-center.justify-between 
-                    a.text-gray-500.text-xs(href="/usuario/login" class="hover:underline hover:decoration-2 hover:decoration-red-600") ¿Ya tienes cuenta? Inicia Sesion 
-                    a.text-gray-500.text-xs(href="/usuario/passwordRecovery " class="hover:underline decoration-2 hover:decoration-red-600") Olvide mi contraseña...
+                    .flex.items-center.justify-between 
+                        a.text-gray-500.text-xs(href="/usuario/login" class="hover:underline hover:decoration-2 hover:decoration-red-600") ¿Ya tienes cuenta? Inicia Sesion 
+                        a.text-gray-500.text-xs(href="/usuario/passwordRecovery " class="hover:underline decoration-2 hover:decoration-red-600") Olvide mi contraseña...
                     input(class="w-full bg-indigo-600 hover:bg-red-600 text-white font-bold py-3 cursor-pointer" type="submit" value="Crear cuenta")
 
                         

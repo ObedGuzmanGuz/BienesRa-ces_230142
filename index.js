@@ -9,7 +9,16 @@
 import express from 'express';
 import generalrouter from'./Routes/generalrouter.js'
 import userroutes from'./Routes/userroutes.js'
+import db from './config/db.js'
 const app = express()
+
+//conexion a la base de datos
+try {
+    await db.authenticate();
+    console.log('Conexion correcta a la base de datos')
+} catch (error) {
+    console.log(error)
+}
 
 // Configurar Template Engine -PUG
 app.set('view engine', 'pug')
