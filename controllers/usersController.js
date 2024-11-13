@@ -1,5 +1,7 @@
+ import { check, validationResult } from 'express-validator';
+import Usuario from '../models/Usuario.js'
 
-
+ 
 const formularioLogin =(request,response) => {
     response.render('auth/login',{
 
@@ -13,6 +15,47 @@ const formularioLogin =(request,response) => {
 
     })
   };
+
+const registrar = async (req,res) =>{
+    //Validacion
+  
+  await check('nombre').notEmpty().withMessage('El nombre no puede ir vacio,campo obligatorio').run(req) 
+  await check('email').notEmpty().withMessage('No es un Email').isEmail().withMessage('Correo campo obligatorio').run(req) 
+  await check('password').notEmpty().withMessage('Contraseña campo obligatorio').isLength({min: 8}).withMessage('El password debe de ser de almenos 6 caracteres').run(req)   
+  
+  
+  await check('pass2_usuario').equals(req.body.password).withMessage('Los password no son iguales').run(req)   
+  
+  
+  
+  let resultado=validationResult(req)
+
+
+  //verificar que el resultado este vacio
+
+//return res.json(resultado.array())
+
+
+
+    if(!resultado.isEmpty()){
+      return res.render('auth/register',{
+        page: "Error al intentar al crear la cuenta...",
+        errores: resultado.array(),
+        usuario:{
+          nombre: req.body.nombre,
+          email: req.body.email
+        }
+      })
+
+    }
+
+
+  
+  
+  
+  const usuario= await Usuario.create(req.body)
+    res.json(usuario)
+}
 
 
 
@@ -33,7 +76,9 @@ const formularioLogin =(request,response) => {
 
   export  {
     formularioLogin, 
-    formularioRegister, formularioPasswordRecovery
+    formularioRegister, 
+    registrar,
+    formularioPasswordRecovery
   }
 
 

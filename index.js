@@ -5,16 +5,22 @@
 /*const express = require('express');//importar la libreria para crear un servidor web */
 // instalar nuestra aplicacion web
 
-
+ 
 import express from 'express';
 import generalrouter from'./Routes/generalrouter.js'
 import userroutes from'./Routes/userroutes.js'
 import db from './config/db.js'
 const app = express()
 
+//habilitar lectura de datos de formulario
+app.use(express.urlencoded({extended:true}))
+
+
+
 //conexion a la base de datos
 try {
     await db.authenticate();
+    db.sync();
     console.log('Conexion correcta a la base de datos')
 } catch (error) {
     console.log(error)

@@ -18,4 +18,4 @@ const db = new Sequelize(process.env.BD_NOMBRE,process.env.BD_USER,process.env.B
         operatorAliases: false
     });
 
-    export default db;
+    export default db; 
