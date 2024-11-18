@@ -1,7 +1,7 @@
  import { check, validationResult } from 'express-validator';
 import Usuario from '../models/Usuario.js'
-
- 
+import { generatetId } from '../helpers/tokens.js';
+import {emailRegistro} from '../helpers/emails.js' 
 const formularioLogin =(request,response) => {
     response.render('auth/login',{
 
@@ -48,13 +48,59 @@ const registrar = async (req,res) =>{
       })
 
     }
+  // extraer los datos 
+  const {nombre, email, password} =req.body
+
+  //vreificar que el ususario no este duplicado
+
+  const existeUsuario= await Usuario.findOne({where:{email}})
+  
+  if(existeUsuario){
+    return res.render('auth/register',{
+      page: "Error al intentar al crear la cuenta...",
+      errores: [{msg: 'El usuario ya esta registrado'}],
+      usuario:{
+        nombre: req.body.nombre,
+        email: req.body.email
+      }
+    })
+
+  }
+  
+
+  //almacenar un usuario
+  const usuario= await Usuario.create({
+    nombre,
+    email,
+    password,
+    token: generatetId()
+
+  })
+  // envia emailo de confirmacion
+   emailRegistro({
+      nombre: usuario.nombre,
+      email:  usuario.email,
+      token:  usuario.token
+
+   })
 
 
+  //Mostra mensaje de confirmacion
+
+  res.render('templates/message', {
+    page: 'Cuenta creada  ',
+    msg: 'Hemos enviado un Email de confirmacion'
+
+  })
+
+
+
+
+//verificacion de la contraseña
   
   
-  
-  const usuario= await Usuario.create(req.body)
-    res.json(usuario)
+ // const usuario= await Usuario.create(req.body)
+   // res.json(usuario)
 }
 
 
