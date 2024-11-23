@@ -13,6 +13,10 @@ const Usuario= db.define('tbb_users',{
         allowNull: false ,   
         unique:true
     }, 
+    birthdate: {
+        type: DataTypes.DATEONLY, 
+        allowNull: false
+      },
     password:{
         type: DataTypes.STRING,
         allowNull: false 

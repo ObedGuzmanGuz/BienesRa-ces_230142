@@ -28,6 +28,8 @@ const registrar = async (req,res) =>{
 
 
   await check('email').notEmpty().withMessage('No es un Email').isEmail().withMessage('Correo campo obligatorio').run(req) 
+  await check('birthdate').notEmpty() .withMessage('La fecha de nacimiento es obligatoria').isDate() .withMessage('Debe ser una fecha válida ').run(req);
+
   await check('password').notEmpty().withMessage('Contraseña campo obligatorio').isLength({min: 8}).withMessage('El password debe de ser de almenos 6 caracteres').run(req)   
   
   
@@ -51,13 +53,14 @@ const registrar = async (req,res) =>{
         errores: resultado.array(),
         usuario:{
           nombre: req.body.nombre,
-          email: req.body.email
+          email: req.body.email,
+          birthdate: req.body.birthdate
         }
       })
 
     }
   // extraer los datos 
-  const {nombre, email, password} =req.body
+  const {nombre, email,birthdate, password} =req.body
 
   //vreificar que el ususario no este duplicado
 
@@ -70,7 +73,8 @@ const registrar = async (req,res) =>{
       errores: [{msg: 'El usuario ya esta registrado'}],
       usuario:{
         nombre: req.body.nombre,
-        email: req.body.email
+        email: req.body.email,
+        birthdate: req.body.birthdate
       }
     })
 
@@ -81,6 +85,7 @@ const registrar = async (req,res) =>{
   const usuario= await Usuario.create({
     nombre,
     email,
+    birthdate,
     password,
     token: generatetId()
 

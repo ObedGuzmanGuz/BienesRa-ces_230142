@@ -26,6 +26,10 @@ block contenido
                     div 
                         label.block.text-sm.uppercase.text-gray-1000.mb-3.font-bold Correo electronico
                         input#email.w-full.px-3.py-2.border.border-gray-600.rounded-md.placeholder-gray-400(placeholder= "ej: usuario@gmail.com" type="email" name="email" value= usuario ? usuario.email :'' )
+                    div
+                        label.block.text-sm.uppercase.text-gray-1000.mb-3.font-bold Fecha de Nacimiento
+                        input#birthdate.w-full.px-3.py-2.border.border-gray-600.rounded-md.placeholder-gray-400(placeholder="ej: 2005-04-01" type="date" name="birthdate" value= usuario ? usuario.birthdate : '')
+
                     div 
                         label.block.text-sm.uppercase.text-gray-1000.mb-3.font-bold Password
                         input#password.w-full.px-3.py-2.border.border-gray-600.rounded-xl.placeholder-gray-400(placeholder= "minimo de 8 caracteres" type="password" name="password")
