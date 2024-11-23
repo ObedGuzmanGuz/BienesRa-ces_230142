@@ -14,7 +14,7 @@ const formularioLogin =(request,response) => {
   const formularioRegister =(request,response) => {
    
     response.render('auth/register',{
-      page: "Crear cuenta...",
+      
       csrfToke: request.csrfToken()
 
     })
@@ -30,7 +30,7 @@ const registrar = async (req,res) =>{
   await check('email').notEmpty().withMessage('No es un Email').isEmail().withMessage('Correo campo obligatorio').run(req) 
   await check('birthdate').notEmpty() .withMessage('La fecha de nacimiento es obligatoria').isDate() .withMessage('Debe ser una fecha válida ').run(req);
 
-  await check('password').notEmpty().withMessage('Contraseña campo obligatorio').isLength({min: 8}).withMessage('El password debe de ser de almenos 6 caracteres').run(req)   
+  await check('password').notEmpty().withMessage('Contraseña campo obligatorio').isLength({min: 8}).withMessage('El password debe de ser de almenos 8 caracteres').run(req)   
   
   
   await check('pass2_usuario').equals(req.body.password).withMessage('Los password no son iguales').run(req)   
