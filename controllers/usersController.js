@@ -4,6 +4,7 @@ import { generatetId } from '../helpers/tokens.js';
 import {emailRegistro} from '../helpers/emails.js' 
 import { response } from 'express';
 import csurf from 'csurf';
+import moment from 'moment';
 const formularioLogin =(request,response) => {
     response.render('auth/login',{
       page: 'iniciar Sesion'
@@ -28,7 +29,22 @@ const registrar = async (req,res) =>{
 
 
   await check('email').notEmpty().withMessage('No es un Email').isEmail().withMessage('Correo campo obligatorio').run(req) 
-  await check('birthdate').notEmpty() .withMessage('La fecha de nacimiento es obligatoria').isDate() .withMessage('Debe ser una fecha válida ').run(req);
+  await check('birthdate')
+  .notEmpty().withMessage('La fecha de nacimiento es obligatoria')
+  .isDate().withMessage('Debe ser una fecha válida')
+  .custom((value) => {
+    const birthDate = moment(value, 'YYYY-MM-DD');
+    const age = moment().diff(birthDate, 'years');
+    if (age < 18) {
+      throw new Error('Debes ser mayor de edad para registrarte');
+    }
+    return true;
+  })
+  .run(req);
+
+// Verificar los errores después de la validación
+
+
 
   await check('password').notEmpty().withMessage('Contraseña campo obligatorio').isLength({min: 8}).withMessage('El password debe de ser de almenos 8 caracteres').run(req)   
   

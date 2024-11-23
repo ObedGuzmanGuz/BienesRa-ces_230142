@@ -804,9 +804,6 @@ video {
   --tw-placeholder-opacity: 1;
   color: rgb(156 163 175 / var(--tw-placeholder-opacity));
 }
-.opacity-100 {
-  opacity: 1;
-}
 .shadow {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
@@ -824,61 +821,87 @@ video {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
-.transition-opacity {
-  transition-property: opacity;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-.delay-\[2s\] {
-  transition-delay: 2s;
-}
 .duration-200 {
   transition-duration: 200ms;
 }
-.duration-700 {
-  transition-duration: 700ms;
-}
 @import 'animate.css';
 
+/* Contenedor de los mensajes de error */
+.error-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+/* El estilo del mensaje de error */
+.error {
+  animation: fadeOut 3s ease forwards;
+  padding-bottom: 10px; /* Espacio para la barra de progreso */
+}
+
+/* Barra de progreso debajo del mensaje de error */
+.progress-bar-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background-color: #f0f0f0;
+  animation: fadeOutProgressBar 3s ease forwards; /* Desaparece con el error */
+}
+
+.progress-bar {
+  width: 0; /* Comienza vacía */
+  height: 100%;
+  background-color: #4caf50; /* Color de la barra de progreso */
+  animation: fillProgress 3s forwards; /* Se llena en 3 segundos */
+}
+
+/* Animación para la barra de progreso */
+@keyframes fillProgress {
+  100% {
+    width: 100%; /* La barra se llena completamente en 3 segundos */
+  }
+}
+
+/* Animación de desaparición del mensaje de error */
 @keyframes fadeOut {
   0% {
     opacity: 1;
   }
+  99% {
+    opacity: 1;
+  }
   100% {
-    opacity: 0;
+    opacity: 0; /* Se desvanece */
   }
 }
 
-.animate-fadeOut {
-  animation: fadeOut 1s forwards;
+/* Animación para la desaparición de la barra de progreso */
+@keyframes fadeOutProgressBar {
+  0% {
+    opacity: 1;
+  }
+  99% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0; /* Desaparece */
+  }
 }
-
-.error-container {
-  animation-delay: calc(1s * var(--index));
-}
-
 .hover\:bg-mint:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(98 168 124 / var(--tw-bg-opacity));
 }
-
 .hover\:bg-orange:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(243 167 18 / var(--tw-bg-opacity));
 }
-
 .hover\:underline:hover {
   text-decoration-line: underline;
 }
-
 .hover\:decoration-red-600:hover {
   text-decoration-color: #dc2626;
 }
-
 .hover\:decoration-2:hover {
   text-decoration-thickness: 2px;
-}
-
-.hover\:opacity-0:hover {
-  opacity: 0;
 }
