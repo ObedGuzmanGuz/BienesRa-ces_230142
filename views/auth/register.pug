@@ -1,19 +1,18 @@
-extends ../layout/index
 
+extends ../layout/index
 block contenido
  body(class="bg-cover bg-center bg-fixed bg-no-repeat" style="background-image: url('https://wallpaperaccess.com/full/3702528.jpg');")
     .py-10
-        h1.text-center.text-4xl.my-10.font-extrabold.text-white Bienvenido
-        h1.text-4xl.my-10.font-extrabold.text-center.text-white Bienes
-            span.text-cerulean.font-extrabold Raices
+        h1.text-center.text-4xl.my-10.font-extrabold.text-white(class="animate__animated animate__backInDown") Bienvenido
+        h1.text-4xl.my-10.font-extrabold.text-center.text-white(class="animate__animated animate__bounceInLeft") Bienes
+            span.text-cerulean.font-extrabold(class="animate__animated animate__bounceInRight") Raices
         h2.text-center.text-2xl.font-extrabold= page
         if errores
             div(class="max-w-md mx-auto my-10")
                 each error in errores
                     div(class="error-container")
-                        p(class="error bg-red-500 text-black uppercase text-xs text-center p-2 mb-1 font-bold")= error.msg
-                            div(class="progress-bar-container")
-                                div(class="progress-bar")
+                        p(class="error bg-red-500 text-black uppercase text-xs text-center p-2 mb-1 font-bold animate__animated animate__fadeInUp")= error.msg
+                            
 
         .mt-8.mx-auto.max-w-md 
             .bg-gray-900.bg-opacity-80.py-8.px-6.shadow-lg.rounded-2xl
@@ -40,11 +39,11 @@ block contenido
                     .flex.items-center.justify-between
                         a.text-gray-400.text-xs(href="/usuario/login" class="hover:underline hover:decoration-2 hover:decoration-red-600") ¿Ya tienes cuenta? Inicia sesión
                         a.text-gray-400.text-xs(href="/usuario/passwordRecovery" class="hover:underline decoration-2 hover:decoration-red-600") Olvidé mi contraseña...
-                    input(class="w-full bg-cerulean hover:bg-blue-700 text-white font-bold py-3 rounded-lg cursor-pointer" type="submit" value="Crear cuenta")
+                    input(class="w-full bg-cerulean hover:bg-mint text-white font-bold py-3 rounded-lg cursor-pointer" type="submit" value="Crear cuenta")
                     .mt-4.text-center.space-y-4
-                        button(class="w-full flex items-center justify-center bg-cerulean text-white py-2 px-4 rounded-lg shadow hover:bg-gray-100 transition duration-200")
+                        button(class="w-full flex items-center justify-center bg-cerulean text-white py-2 px-4 rounded-lg shadow hover:bg-mint transition duration-200")
                             img(class="h-6 w-6 mr-3" src="../images/google.png" )
                             span Iniciar sesión con Google
-                        button(class="w-full flex items-center justify-center bg-cerulean text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 transition duration-200")
+                        button(class="w-full flex items-center justify-center bg-cerulean text-white py-2 px-4 rounded-lg shadow hover:bg-mint transition duration-200")
                             img(class="h-6 w-6 mr-3" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/512px-Facebook_Logo_%282019%29.png" )
                             span Iniciar sesión con Facebook
