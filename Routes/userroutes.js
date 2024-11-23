@@ -1,5 +1,5 @@
 import express, { application, request, response } from'express'
-import { formularioLogin, formularioRegister, formularioPasswordRecovery } from '../controllers/usersController.js';
+import { formularioLogin, formularioRegister,registrar, confirmar,formularioPasswordRecovery } from '../controllers/usersController.js';
 const router=express.Router();
 //Get se utiliza para lalectura de datos e informacion
 //endpoints: rutas para acceder a las secciones o funciones de nuestra aplicación web
@@ -47,6 +47,11 @@ router.get("/login", function(request,response){
 router.get("/login", formularioLogin /*middleware*/)
 
 router.get("/createAccount", formularioRegister )
+router.post("/createAccount", registrar )
+ 
+router.get("/confirmar/:token", confirmar)
+
+
 router.get("/passwordRecovery", formularioPasswordRecovery )
 
 

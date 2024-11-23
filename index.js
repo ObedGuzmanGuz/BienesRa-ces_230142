@@ -5,11 +5,32 @@
 /*const express = require('express');//importar la libreria para crear un servidor web */
 // instalar nuestra aplicacion web
 
-
+ 
 import express from 'express';
+import csrf from 'csurf';
+import cookieParser from 'cookie-parser';
 import generalrouter from'./Routes/generalrouter.js'
 import userroutes from'./Routes/userroutes.js'
+import db from './config/db.js'
 const app = express()
+
+//habilitar lectura de datos de formulario
+app.use(express.urlencoded({extended:true}))
+
+//habilitar cookie parser
+app.use(cookieParser())
+
+//Habilitar CSRF
+app.use(csrf({cookie: true}))
+
+//conexion a la base de datos
+try {
+    await db.authenticate();
+    db.sync();
+    console.log('Conexion correcta a la base de datos')
+} catch (error) {
+    console.log(error)
+}
 
 // Configurar Template Engine -PUG
 app.set('view engine', 'pug')
@@ -21,7 +42,7 @@ app.use(express.static('public'));
 
 
 // Configuramos nuestro servidor web
-const port= 3000;
+const port= process.env.PORT || 3000;
 
 
 app.listen(port, ()=>{

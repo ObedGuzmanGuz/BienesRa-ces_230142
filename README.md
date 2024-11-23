@@ -15,6 +15,7 @@ Para poder demostrar y aprender la creacion y consumo de Interfaces de programac
 |9.|22/10/2024|Creacion de una aplicacion web usando Express|12| Finalizada|
 |10.|23/10/2024|Operaciones basicas de un API a traves de los Verbos htpp|12| Finalizada|
 |11.|05/11/2024|Implementacion de las pantallas de registro, logeo y recuperacion de contraseña|13| Activa|
+|12.|--|------|0|--|
 
 
 ### Tech Stack
