@@ -6,12 +6,13 @@ export default {
       colors: {
         white: '#FFFFFF',
         black: '#000000',
-        mint: '#62A87C',
         cerulean: '#006992',
+        mint:'#62A87C',
         orange: '#F3A712',
       },
     },
   },
+  darkMode: 'class',
   plugins: [],
 };
 

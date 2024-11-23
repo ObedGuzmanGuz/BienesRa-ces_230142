@@ -1,11 +1,12 @@
-extends ../layout/index   
 
+extends ../layout/index
 block contenido
-    .py-10 
-        h1.text-center.text-4xl.my-10.font-extrabold.text-cerulean Bienvenido
-        h1.text-4xl.my-10.font-extrabold.text-center.text-cerulean Bienes
-            span.font-normal.text-black Raices
-        h2.text-center.text-2xl.font-extrabold=page
+ body(class="bg-cover bg-center bg-fixed bg-no-repeat" style="background-image: url('https://wallpaperaccess.com/full/3702528.jpg');")
+    .py-10
+        h1.text-center.text-4xl.my-10.font-extrabold.text-white(class="animate__animated animate__backInDown") Bienvenido
+        h1.text-4xl.my-10.font-extrabold.text-center.text-white(class="animate__animated animate__bounceInLeft") Bienes
+            span.text-cerulean.font-extrabold(class="animate__animated animate__bounceInRight") Raices
+        h2.text-center.text-2xl.font-extrabold= page    
         if errores
             div(class="max-w-md mx-auto my-10")
                 each error in errores
@@ -14,27 +15,47 @@ block contenido
                             div(class="progress-bar-container")
                                 div(class="progress-bar")
 
+        script.
+            document.addEventListener('DOMContentLoaded', function() {
+            const errorMessages = document.querySelectorAll('.error-container');
+            errorMessages.forEach(errorMessage => {
+                errorMessage.addEventListener('animationend', function() {
+                errorMessage.remove(); 
+                });
+            });
+            });
 
 
         .mt-8.mx-auto.max-w-md 
-            .bg-white.py-8.px-4-shadow.shadow-lg
-                form.space-y-5.px-6(method="POST" action="/usuario/createAccount"  noValidate)
+            .bg-gray-900.bg-opacity-80.py-8.px-6.shadow-lg.rounded-2xl
+            
+                form.space-y-6(method="POST" action="/usuario/createAccount" noValidate)
                     input(type="hidden" name="_csrf" value=csrfToke)
-                    div 
-                        label.block.text-sm.uppercase.text-gray-1000.mb-3.font-bold Nombre Completo 
-                        input#nombre.w-full.px-3.py-2.border.border-gray-600.rounded-xl.placeholder-gray-400(placeholder= "Ingresa Tu nombre con apellidos" type="text" name="nombre" value= usuario ? usuario.nombre :'')
-                    div 
-                        label.block.text-sm.uppercase.text-gray-1000.mb-3.font-bold Correo electronico
-                        input#email.w-full.px-3.py-2.border.border-gray-600.rounded-md.placeholder-gray-400(placeholder= "ej: usuario@gmail.com" type="email" name="email" value= usuario ? usuario.email :'' )
-                    div 
-                        label.block.text-sm.uppercase.text-gray-1000.mb-3.font-bold Password
-                        input#password.w-full.px-3.py-2.border.border-gray-600.rounded-xl.placeholder-gray-400(placeholder= "minimo de 8 caracteres" type="password" name="password")
-                    div 
-                        label.block.text-sm.uppercase.text-gray-1000.mb-3.font-bold Confirmacion de contraseña
-                        input#password-confirm.w-full.px-3.py-2.border.border-gray-600.rounded-md.placeholder-gray-400(placeholder= "minimo de 8 caracteres" type="password" name="pass2_usuario")
-                    .flex.items-center.justify-between 
-                        a.text-gray-700.text-xs(href="/usuario/login" class="hover:underline hover:decoration-2 hover:decoration-red-600") ¿Ya tienes cuenta? Inicia Sesion 
-                        a.text-gray-700.text-xs(href="/usuario/passwordRecovery " class="hover:underline decoration-2 hover:decoration-red-600") Olvide mi contraseña...
-                    input(class="w-full bg-mint hover:bg-orange text-white font-bold py-3 cursor-pointer" type="submit" value="Crear cuenta")
-
-                        
+                    div.text-center.mb-3
+                    img(class="h-28 w-28 mx-auto" src="../images/image.png" alt="Usuario")
+                    div
+                        label.block.text-sm.uppercase.text-white.mb-3.font-bold Nombre Completo
+                        input#nombre.w-full.px-4.py-3.border.border-gray-600.rounded-lg.bg-gray-800.text-white.placeholder-gray-400(placeholder="Ingresa Tu nombre con apellidos" type="text" name="nombre" value=usuario ? usuario.nombre : '')
+                    div
+                        label.block.text-sm.uppercase.text-white.mb-3.font-bold Correo electrónico
+                        input#email.w-full.px-4.py-3.border.border-gray-600.rounded-lg.bg-gray-800.text-white.placeholder-gray-400(placeholder="ej: usuario@gmail.com" type="email" name="email" value=usuario ? usuario.email : '')
+                    div
+                        label.block.text-sm.uppercase.text-white.mb-3.font-bold Fecha de Nacimiento
+                        input#birthdate.w-full.px-4.py-3.border.border-gray-600.rounded-lg.bg-gray-800.text-white.placeholder-gray-400(placeholder="ej: 01-01-2000" type="date" name="birthdate" )
+                    div
+                        label.block.text-sm.uppercase.text-white.mb-3.font-bold Contraseña
+                        input#password.w-full.px-4.py-3.border.border-gray-600.rounded-lg.bg-gray-800.text-white.placeholder-gray-400(placeholder="mínimo de 8 caracteres" type="password" name="password")
+                    div
+                        label.block.text-sm.uppercase.text-white.mb-3.font-bold Confirmación de Contraseña
+                        input#password-confirm.w-full.px-4.py-3.border.border-gray-600.rounded-lg.bg-gray-800.text-white.placeholder-gray-400(placeholder="mínimo de 8 caracteres" type="password" name="pass2_usuario")
+                    .flex.items-center.justify-between
+                        a.text-gray-400.text-xs(href="/usuario/login" class="hover:underline hover:decoration-2 hover:decoration-red-600") ¿Ya tienes cuenta? Inicia sesión
+                        a.text-gray-400.text-xs(href="/usuario/passwordRecovery" class="hover:underline decoration-2 hover:decoration-red-600") Olvidé mi contraseña...
+                    input(class="w-full bg-cerulean hover:bg-mint text-white font-bold py-3 rounded-lg cursor-pointer" type="submit" value="Crear cuenta")
+                    .mt-4.text-center.space-y-4
+                        button(class="w-full flex items-center justify-center bg-cerulean text-white py-2 px-4 rounded-lg shadow hover:bg-mint transition duration-200")
+                            img(class="h-6 w-6 mr-3" src="../images/google.png" )
+                            span Iniciar sesión con Google
+                        button(class="w-full flex items-center justify-center bg-cerulean text-white py-2 px-4 rounded-lg shadow hover:bg-mint transition duration-200")
+                            img(class="h-6 w-6 mr-3" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/512px-Facebook_Logo_%282019%29.png" )
+                            span Iniciar sesión con Facebook

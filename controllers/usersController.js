@@ -4,6 +4,7 @@ import { generatetId } from '../helpers/tokens.js';
 import {emailRegistro} from '../helpers/emails.js' 
 import { response } from 'express';
 import csurf from 'csurf';
+import moment from 'moment';
 const formularioLogin =(request,response) => {
     response.render('auth/login',{
       page: 'iniciar Sesion'
@@ -14,7 +15,7 @@ const formularioLogin =(request,response) => {
   const formularioRegister =(request,response) => {
    
     response.render('auth/register',{
-      page: "Crear cuenta...",
+      
       csrfToke: request.csrfToken()
 
     })
@@ -28,7 +29,24 @@ const registrar = async (req,res) =>{
 
 
   await check('email').notEmpty().withMessage('No es un Email').isEmail().withMessage('Correo campo obligatorio').run(req) 
-  await check('password').notEmpty().withMessage('Contraseña campo obligatorio').isLength({min: 8}).withMessage('El password debe de ser de almenos 6 caracteres').run(req)   
+  await check('birthdate')
+  .notEmpty().withMessage('La fecha de nacimiento es obligatoria')
+  .isDate().withMessage('Debe ser una fecha válida')
+  .custom((value) => {
+    const birthDate = moment(value, 'YYYY-MM-DD');
+    const age = moment().diff(birthDate, 'years');
+    if (age < 18) {
+      throw new Error('Debes ser mayor de edad para registrarte');
+    }
+    return true;
+  })
+  .run(req);
+
+// Verificar los errores después de la validación
+
+
+
+  await check('password').notEmpty().withMessage('Contraseña campo obligatorio').isLength({min: 8}).withMessage('El password debe de ser de almenos 8 caracteres').run(req)   
   
   
   await check('pass2_usuario').equals(req.body.password).withMessage('Los password no son iguales').run(req)   
@@ -51,13 +69,14 @@ const registrar = async (req,res) =>{
         errores: resultado.array(),
         usuario:{
           nombre: req.body.nombre,
-          email: req.body.email
+          email: req.body.email,
+          birthdate: req.body.birthdate
         }
       })
 
     }
   // extraer los datos 
-  const {nombre, email, password} =req.body
+  const {nombre, email,birthdate, password} =req.body
 
   //vreificar que el ususario no este duplicado
 
@@ -70,7 +89,8 @@ const registrar = async (req,res) =>{
       errores: [{msg: 'El usuario ya esta registrado'}],
       usuario:{
         nombre: req.body.nombre,
-        email: req.body.email
+        email: req.body.email,
+        birthdate: req.body.birthdate
       }
     })
 
@@ -81,6 +101,7 @@ const registrar = async (req,res) =>{
   const usuario= await Usuario.create({
     nombre,
     email,
+    birthdate,
     password,
     token: generatetId()
 

@@ -549,8 +549,14 @@ video {
 .mb-3 {
   margin-bottom: 0.75rem;
 }
+.mr-3 {
+  margin-right: 0.75rem;
+}
 .mt-10 {
   margin-top: 2.5rem;
+}
+.mt-4 {
+  margin-top: 1rem;
 }
 .mt-8 {
   margin-top: 2rem;
@@ -564,8 +570,20 @@ video {
 .hidden {
   display: none;
 }
+.h-28 {
+  height: 7rem;
+}
+.h-6 {
+  height: 1.5rem;
+}
 .min-h-screen {
   min-height: 100vh;
+}
+.w-28 {
+  width: 7rem;
+}
+.w-6 {
+  width: 1.5rem;
 }
 .w-full {
   width: 100%;
@@ -579,16 +597,32 @@ video {
 .items-center {
   align-items: center;
 }
+.justify-center {
+  justify-content: center;
+}
 .justify-between {
   justify-content: space-between;
+}
+.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
 .space-y-5 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.25rem * var(--tw-space-y-reverse));
 }
+.space-y-6 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
 .rounded {
   border-radius: 0.25rem;
+}
+.rounded-2xl {
+  border-radius: 1rem;
 }
 .rounded-lg {
   border-radius: 0.5rem;
@@ -610,9 +644,21 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(75 85 99 / var(--tw-border-opacity));
 }
+.bg-cerulean {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 105 146 / var(--tw-bg-opacity));
+}
 .bg-gray-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+}
+.bg-gray-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+}
+.bg-gray-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(17 24 39 / var(--tw-bg-opacity));
 }
 .bg-green-500 {
   --tw-bg-opacity: 1;
@@ -629,6 +675,21 @@ video {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+.bg-opacity-80 {
+  --tw-bg-opacity: 0.8;
+}
+.bg-cover {
+  background-size: cover;
+}
+.bg-fixed {
+  background-attachment: fixed;
+}
+.bg-center {
+  background-position: center;
+}
+.bg-no-repeat {
+  background-repeat: no-repeat;
 }
 .p-2 {
   padding: 0.5rem;
@@ -668,14 +729,6 @@ video {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
-}
-.py-7 {
-  padding-top: 1.75rem;
-  padding-bottom: 1.75rem;
-}
-.px-7 {
-  padding-left: 1.75rem;
-  padding-right: 1.75rem;
 }
 .text-center {
   text-align: center;
@@ -720,6 +773,10 @@ video {
   --tw-text-opacity: 1;
   color: rgb(0 105 146 / var(--tw-text-opacity));
 }
+.text-gray-400 {
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity));
+}
 .text-gray-700 {
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
@@ -757,83 +814,94 @@ video {
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
+.transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.duration-200 {
+  transition-duration: 200ms;
+}
 @import 'animate.css';
-
 
 /* Contenedor de los mensajes de error */
 .error-container {
-    position: relative;
-    margin-bottom: 20px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+/* El estilo del mensaje de error */
+.error {
+  animation: fadeOut 3s ease forwards;
+  padding-bottom: 10px; /* Espacio para la barra de progreso */
+}
+
+/* Barra de progreso debajo del mensaje de error */
+.progress-bar-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background-color: #f0f0f0;
+  animation: fadeOutProgressBar 3s ease forwards; /* Desaparece con el error */
+}
+
+.progress-bar {
+  width: 0; /* Comienza vacía */
+  height: 100%;
+  background-color: #4caf50; /* Color de la barra de progreso */
+  animation: fillProgress 3s forwards; /* Se llena en 3 segundos */
+}
+
+/* Animación para la barra de progreso */
+@keyframes fillProgress {
+  100% {
+    width: 100%; /* La barra se llena completamente en 3 segundos */
   }
-  
-  /* El estilo del mensaje de error */
-  .error {
-    animation: fadeOut 3s ease forwards;
-    padding-bottom: 10px; /* Espacio para la barra de progreso */
+}
+
+/* Animación de desaparición del mensaje de error */
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
   }
-  
-  /* Barra de progreso debajo del mensaje de error */
-  .progress-bar-container {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    background-color: #f0f0f0;
-    animation: fadeOutProgressBar 3s ease forwards; /* Desaparece con el error */
+  99% {
+    opacity: 1;
   }
-  
-  .progress-bar {
-    width: 0; /* Comienza vacía */
-    height: 100%;
-    background-color: #4caf50; /* Color de la barra de progreso */
-    animation: fillProgress 3s forwards; /* Se llena en 3 segundos */
+  100% {
+    opacity: 0; /* Se desvanece */
   }
-  
-  /* Animación para la barra de progreso */
-  @keyframes fillProgress {
-    100% {
-      width: 100%; /* La barra se llena completamente en 3 segundos */
-    }
+}
+
+/* Animación para la desaparición de la barra de progreso */
+@keyframes fadeOutProgressBar {
+  0% {
+    opacity: 1;
   }
-  
-  /* Animación de desaparición del mensaje de error */
-  @keyframes fadeOut {
-    0% {
-      opacity: 1;
-    }
-    99% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0; /* Se desvanece */
-      display: none; /* Se oculta */
-    }
+  99% {
+    opacity: 1;
   }
-  
-  /* Animación para la desaparición de la barra de progreso */
-  @keyframes fadeOutProgressBar {
-    0% {
-      opacity: 1;
-    }
-    99% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0; /* Desaparece */
-      display: none; /* Se oculta */
-    }
+  100% {
+    opacity: 0; /* Desaparece */
   }
-  .hover\:bg-orange:hover {
+}
+.hover\:bg-mint:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(98 168 124 / var(--tw-bg-opacity));
+}
+.hover\:bg-orange:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(243 167 18 / var(--tw-bg-opacity));
 }
-  .hover\:underline:hover {
+.hover\:underline:hover {
   text-decoration-line: underline;
 }
-  .hover\:decoration-red-600:hover {
+.hover\:decoration-red-600:hover {
   text-decoration-color: #dc2626;
 }
-  .hover\:decoration-2:hover {
+.hover\:decoration-2:hover {
   text-decoration-thickness: 2px;
 }
