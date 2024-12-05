@@ -30,7 +30,7 @@ block contenido
             .bg-gray-900.bg-opacity-80.py-8.px-6.shadow-lg.rounded-2xl
             
                 form.space-y-6(method="POST" action="/usuario/createAccount" noValidate)
-                    input(type="hidden" name="_csrf" value=csrfToke)
+                    input(type="hidden" name="_csrf" value=csrfToken)
                     div.text-center.mb-3
                     img(class="h-28 w-28 mx-auto" src="../images/image.png" alt="Usuario")
                     div

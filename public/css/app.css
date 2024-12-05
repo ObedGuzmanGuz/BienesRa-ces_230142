@@ -576,6 +576,9 @@ video {
 .h-6 {
   height: 1.5rem;
 }
+.h-full {
+  height: 100%;
+}
 .min-h-screen {
   min-height: 100vh;
 }
@@ -587,6 +590,12 @@ video {
 }
 .w-full {
   width: 100%;
+}
+.max-w-4xl {
+  max-width: 56rem;
+}
+.max-w-full {
+  max-width: 100%;
 }
 .max-w-md {
   max-width: 28rem;
@@ -617,9 +626,6 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
-}
-.rounded {
-  border-radius: 0.25rem;
 }
 .rounded-2xl {
   border-radius: 1rem;
@@ -690,6 +696,10 @@ video {
 }
 .bg-no-repeat {
   background-repeat: no-repeat;
+}
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .p-2 {
   padding: 0.5rem;
@@ -834,7 +844,7 @@ video {
 
 /* El estilo del mensaje de error */
 .error {
-  animation: fadeOut 3s ease forwards;
+  animation: fadeOut 6s ease forwards;
   padding-bottom: 10px; /* Espacio para la barra de progreso */
 }
 
@@ -846,14 +856,14 @@ video {
   width: 100%;
   height: 5px;
   background-color: #f0f0f0;
-  animation: fadeOutProgressBar 3s ease forwards; /* Desaparece con el error */
+  animation: fadeOutProgressBar 6s ease forwards; /* Desaparece con el error */
 }
 
 .progress-bar {
   width: 0; /* Comienza vacía */
   height: 100%;
   background-color: #4caf50; /* Color de la barra de progreso */
-  animation: fillProgress 3s forwards; /* Se llena en 3 segundos */
+  animation: fillProgress 4s forwards; /* Se llena en 3 segundos */
 }
 
 /* Animación para la barra de progreso */
@@ -904,4 +914,10 @@ video {
 }
 .hover\:decoration-2:hover {
   text-decoration-thickness: 2px;
+}
+@media (min-width: 768px) {
+
+  .md\:w-1\/2 {
+    width: 50%;
+  }
 }

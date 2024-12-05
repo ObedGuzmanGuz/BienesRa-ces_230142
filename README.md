@@ -1,5 +1,5 @@
 # BienesRaices_230142
-Proyecto de clase para la Unidad 2 de la asignatura de Aplicaciones Web Orientadas a Servicios (AWOS),a través de una aplicación WEB en Arquitectura SOA para el caso de estudio de una empresa de Bienes Raíces(Compra - Venta de inmuebles)
+Proyecto de clase para la Unidad 3 de la asignatura de Aplicaciones Web Orientadas a Servicios (AWOS),a través de una aplicación WEB en Arquitectura SOA para el caso de estudio de una empresa de Bienes Raíces(Compra - Venta de inmuebles)
 
 
 
@@ -15,7 +15,8 @@ Para poder demostrar y aprender la creacion y consumo de Interfaces de programac
 |9.|22/10/2024|Creacion de una aplicacion web usando Express|12| Finalizada|
 |10.|23/10/2024|Operaciones basicas de un API a traves de los Verbos htpp|12| Finalizada|
 |11.|05/11/2024|Implementacion de las pantallas de registro, logeo y recuperacion de contraseña|13| Finalizada|
-|12.|23/11/2021|Integración de Funcionalidad de Creación de Cuentas de Usuario|30|Activa|
+|12.|23/11/2024|Integración de Funcionalidad de Creación de Cuentas de Usuario|30|Finalizada|
+|13.|05/12/2024|Implementacion de la funcionalidad de la recuperacion de la contraseña|20|Activa|
 
 
 ### Tech Stack
@@ -28,7 +29,7 @@ Para poder demostrar y aprender la creacion y consumo de Interfaces de programac
 Creado por: **Obed Guzman Flores**   [@ObedGuzmanGuz](https://github.com/ObedGuzmanGuz)
 </br>
 
-Unidad 2:
+Unidad 3:
 Aplicaciones web orientadas a Servicios
-Octubre 2024
+Noviembre-Diciembre 2024
 
