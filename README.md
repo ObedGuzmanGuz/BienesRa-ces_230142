@@ -1,5 +1,5 @@
 # BienesRaices_230142
-Proyecto de clase para la Unidad 2 de la asignatura de Aplicaciones Web Orientadas a Servicios (AWOS),a través de una aplicación WEB en Arquitectura SOA para el caso de estudio de una empresa de Bienes Raíces(Compra - Venta de inmuebles)
+Proyecto de clase para la Unidad 3 de la asignatura de Aplicaciones Web Orientadas a Servicios (AWOS),a través de una aplicación WEB en Arquitectura SOA para el caso de estudio de una empresa de Bienes Raíces(Compra - Venta de inmuebles)
 
 
 
@@ -29,7 +29,7 @@ Para poder demostrar y aprender la creacion y consumo de Interfaces de programac
 Creado por: **Obed Guzman Flores**   [@ObedGuzmanGuz](https://github.com/ObedGuzmanGuz)
 </br>
 
-Unidad 2:
+Unidad 3:
 Aplicaciones web orientadas a Servicios
-Octubre 2024
+Noviembre-Diciembre 2024
 
