@@ -200,7 +200,7 @@ if(!usuario){
 
   if(!existingUser){
     return response.render("auth/passwordRecovery",{
-      page: 'Error, no existe una cuenta al correo electronico ingresado',
+      page: 'Error, no existe una cuenta autenticada asociada al correo electronico ingresado',
       csrfToken: request.csrfToken(),
       errors: [{msg: `Por favor revisa los datos e intentalo de nuevo`}],
       user: {
