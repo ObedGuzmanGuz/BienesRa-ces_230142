@@ -31,7 +31,23 @@ const Usuario= db.define('tbb_users',{
     beforeCreate: async function(usuario){
         const salt=await bcrypt.genSalt(10)
         usuario.password= await bcrypt.hash(usuario.password,salt);
-    }
+    },
+    beforeUpdate: async function(usuario){
+      //verificar que existe un token y que este confirmado
+      //TODO: verificar que existe y que este confirmado. Tareaaaaaaaaaaaaa
+      const existingUser = await Usuario.findOne({ where: { id: usuario.id } });
+    
+      if (!existingUser) {
+          throw new Error("El usuario no existe.");
+      }
+  
+      if (!existingUser.confirmado) {
+          throw new Error("El usuario no está confirmado.");
+      }
+      //Genramos la clave para el hasheo, se recomiendan 1o rondas de
+      const salt=await bcrypt.genSalt(10)
+      usuario.password= await bcrypt.hash(usuario.password,salt);
+  }
   }   
 })
 

@@ -1,10 +1,11 @@
  import { check, validationResult } from 'express-validator';
 import Usuario from '../models/Usuario.js'
 import { generatetId } from '../helpers/tokens.js';
-import {emailRegistro} from '../helpers/emails.js' 
-import { response } from 'express';
-import csurf from 'csurf';
+import {emailRegistro,emailChangePassword} from '../helpers/emails.js' 
+import { request, response } from 'express';
 import moment from 'moment';
+import { Result } from 'postcss';
+import { where } from 'sequelize';
 const formularioLogin =(request,response) => {
     response.render('auth/login',{
       page: 'iniciar Sesion'
@@ -16,7 +17,7 @@ const formularioLogin =(request,response) => {
    
     response.render('auth/register',{
       
-      csrfToke: request.csrfToken()
+      csrfToken: request.csrfToken(),
 
     })
   };
@@ -65,7 +66,7 @@ const registrar = async (req,res) =>{
     if(!resultado.isEmpty()){
       return res.render('auth/register',{
         page: "Error al intentar al crear la cuenta...",
-        csrfToke: req.csrfToken(),
+        csrfToken: req.csrfToken(),
         errores: resultado.array(),
         usuario:{
           nombre: req.body.nombre,
@@ -85,7 +86,7 @@ const registrar = async (req,res) =>{
   if(existeUsuario){
     return res.render('auth/register',{
       page: "Error al intentar al crear la cuenta...",
-      csrfToke: req.csrfToken(),
+      csrfToken: req.csrfToken(),
       errores: [{msg: 'El usuario ya esta registrado'}],
       usuario:{
         nombre: req.body.nombre,
@@ -119,7 +120,7 @@ const registrar = async (req,res) =>{
 
   res.render('templates/message', {
     page: 'Cuenta creada  ',
-    msg: `Hemos enviado un Email de confirmación al correo ${email}`
+    msg: `Hemos enviado un Email de confirmación al correo  ${email}`
 
   })
 
@@ -149,7 +150,7 @@ if(!usuario){
   res.render('auth/confirmar-cuenta',{
        page: 'Error al confirmar tu cuenta  ',
         msg: `Hubo un error al confirmar tu cuenta, intenta de nuevo`,
-          link: `${process.env.BACKEND_URL}:${process.env.BACKEND_PORT}/usuario/passwordRecovery`,
+          link: `${process.env.BACKEND_URL}:${process.env.BACKEND_PORT}/usuario/createAccount`,
           error: true
 
  })
@@ -172,16 +173,172 @@ if(!usuario){
 
 }
 
-  const formularioPasswordRecovery =(request,response) => {
+ const passwordReset = async(request, response) => {
+
+  console.log("Validando los datos para la recuperacion de la contraseña")
+  //Validacion de los campos que se recibe del formulario
+
+  //Validacion de frontend
+  await check('email').notEmpty().withMessage("El correo electronico es un campo obligatorio").run(request)
+  await check('email').isEmail().withMessage("El correo electronico no tiene el formato de: usuario@dominio.extension").run(request)
+  let result = validationResult(request)
+
+  //  verificamos si hay errores de validacion
+
+  if(!result.isEmpty()){
+      return response.render("auth/passwordRecovery",{
+        page: 'Error al intetar resetear la contraseña',
+        errors: result.array(),
+        csrfToken: request.csrfToken()
+      })
+  }
+
+  const {email:email} = request.body
+  //Validacion de BACKEND
+  //Verificacion que el usuario no existe previamente emn la bd
+  const existingUser = await Usuario.findOne({where: {email, confirmado:1}})
+
+  if(!existingUser){
+    return response.render("auth/passwordRecovery",{
+      page: 'Error, no existe una cuenta al correo electronico ingresado',
+      csrfToken: request.csrfToken(),
+      errors: [{msg: `Por favor revisa los datos e intentalo de nuevo`}],
+      user: {
+        email:email
+
+      }})
+
+  }
+
+
+  //Registramos los datos en la base de datos.
+
+      existingUser.password= " ";
+      existingUser.token= generatetId();
+    await existingUser.save();
+
+//Enviar el correo de confirmacion
+
+emailChangePassword({
+  name:existingUser.name,
+  email:existingUser.email,
+  token: existingUser.token
+  
+
+})
+
+response.render('templates/message', {
+  page: 'Restablece tu password  ',
+  msg: `Hemos enviado  un email con las instrucciones a  ${email}`
+
+})
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+  const formularioPasswordRecovery = async (request,response) => {
     response.render('auth/passwordRecovery',{
-
-
+     csrfToken: request.csrfToken(),
     })
   };
 
 
+const verifyTokenPasswordChange= async(request, response) =>{
+
+  const {token}= request.params;
+  const userTokenOwner = await Usuario.findOne({where: {token}})
 
 
+  if(!userTokenOwner){
+    
+    response.render('templates/message', {
+      page: 'Error   ',
+      msg: `El token ha expirado o no existe `,
+      error: true
+      })
+  }
+
+ 
+  response.render('auth/resetpassword', {
+    csrfToken: request.csrfToken(),
+    page: 'Actualiza tu contraseñla  ',
+    msg: `Por favor ingresa tu nueva contraseña `
+
+
+    })
+
+}
+
+
+const updatePassword= async(request, response) =>{
+  const {token}= request.params
+
+//Validar campos de contraseña
+await check('new_password').notEmpty().withMessage('Contraseña campo obligatorio').isLength({min: 8}).withMessage('El password debe de ser de almenos 8 caracteres').run(request)   
+  
+await check('Confirm_new_password').equals(request.body.new_password).withMessage('Los password no son iguales').run(request)   
+console.log('new_password:', request.body.new_password);
+console.log('Confirm_new_password:', request.body.Confirm_new_password);
+
+
+let result= validationResult(request)
+
+
+
+if(!result.isEmpty()){
+  return response.render('auth/resetpassword',{
+    page: "Error al intentar al crear la cuenta...",
+    csrfToken: request.csrfToken(),
+    errores: result.array(),
+    usuario:{
+      nombre: request.body.nombre,
+      email: request.body.email,
+      birthdate: request.body.birthdate
+    }
+  })
+
+}
+
+// Actualizar en BD el pass
+//Renderizar la respuesta
+
+const UserTokenOwner= await Usuario.findOne({where:{token}})
+
+UserTokenOwner.password = request.body.new_password
+UserTokenOwner.token=null;
+
+UserTokenOwner.save(); //update tb_users set password=new_password where token=token;
+
+response.render('auth/confirmar-cuenta',{
+  page: ' Excelente ',
+   msg: `Actualizacion de contraseña exitosa`,
+   link: `${process.env.BACKEND_URL}:${process.env.BACKEND_PORT}/usuario/login`,
+        
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+}
 
 
 
@@ -192,7 +349,10 @@ if(!usuario){
     formularioRegister, 
     registrar,
     confirmar,
-    formularioPasswordRecovery
+    formularioPasswordRecovery,
+    passwordReset,
+    verifyTokenPasswordChange,
+    updatePassword
   }
 
 

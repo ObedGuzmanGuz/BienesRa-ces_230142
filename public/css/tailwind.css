@@ -11,7 +11,7 @@
 
 /* El estilo del mensaje de error */
 .error {
-  animation: fadeOut 3s ease forwards;
+  animation: fadeOut 6s ease forwards;
   padding-bottom: 10px; /* Espacio para la barra de progreso */
 }
 
@@ -23,14 +23,14 @@
   width: 100%;
   height: 5px;
   background-color: #f0f0f0;
-  animation: fadeOutProgressBar 3s ease forwards; /* Desaparece con el error */
+  animation: fadeOutProgressBar 6s ease forwards; /* Desaparece con el error */
 }
 
 .progress-bar {
   width: 0; /* Comienza vacía */
   height: 100%;
   background-color: #4caf50; /* Color de la barra de progreso */
-  animation: fillProgress 3s forwards; /* Se llena en 3 segundos */
+  animation: fillProgress 4s forwards; /* Se llena en 3 segundos */
 }
 
 /* Animación para la barra de progreso */
