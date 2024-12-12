@@ -27,7 +27,7 @@ Para poder demostrar y aprender la creacion y consumo de Interfaces de programac
 
 
 ### Autor 
-Creado por: **Obed Guzman Flores**   [@ObedGuzmanGuz](https://github.com/ObedGuzmanGuz)
+Creado por: **Obed Guzman Flores 4A DSM**   [@ObedGuzmanGuz](https://github.com/ObedGuzmanGuz)
 </br>
 
 Unidad 3:
