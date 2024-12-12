@@ -5,14 +5,36 @@ block contenido
     .py-10
     h1.text-4xl.my-10.font-extrabold.text-center.text-white(class="animate__animated animate__bounceInLeft") Bienes
       span.text-cerulean.font-extrabold(class="animate__animated animate__bounceInRight") Raices
-    h2.text.center.font-extrabold.text-2xl= page
+    h2.text-center.font-extrabold.text-2xl.text-white= page
     
+    if errores
+            div(class="max-w-md mx-auto my-10")
+                each error in errores
+                    div(class="error-container")
+                        p(class="error bg-red-500 text-black uppercase text-xs text-center p-2 mb-1 font-bold")= error.msg
+                            div(class="progress-bar-container")
+                                div(class="progress-bar")
+
+    script.
+            document.addEventListener('DOMContentLoaded', function() {
+            const errorMessages = document.querySelectorAll('.error-container');
+            errorMessages.forEach(errorMessage => {
+                errorMessage.addEventListener('animationend', function() {
+                errorMessage.remove(); 
+                });
+            });
+            });
+
+
+
+
     .mt-8.mx-auto.max-w-full.flex.items-center.justify-center
       // Contenedor para el formulario y la imagen
       .flex.w-full.max-w-4xl
         // Contenedor del formulario
         .w-full.bg-gray-900.bg-opacity-80.py-8.px-6.shadow-lg.rounded-2xl
-          form(action="").space-y-5
+          form.space-y-6(method="POST" action="/usuario/login" noValidate)
+            input(type="hidden" name="_csrf" value=csrfToken)
             div
               label.block.text-sm.uppercase.text-white.mb-2.font-bold Correo electronico
               input#email.w-full.px-3.py-2.border.border-gray-300.rounded-xl.placeholder(placeholder="Tu email" type="email" name="email")

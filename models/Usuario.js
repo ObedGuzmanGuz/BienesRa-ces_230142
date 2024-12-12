@@ -32,23 +32,27 @@ const Usuario= db.define('tbb_users',{
         const salt=await bcrypt.genSalt(10)
         usuario.password= await bcrypt.hash(usuario.password,salt);
     },
-    beforeUpdate: async function(usuario){
-      //verificar que existe un token y que este confirmado
-      //TODO: verificar que existe y que este confirmado. Tareaaaaaaaaaaaaa
-      const existingUser = await Usuario.findOne({ where: { id: usuario.id } });
+    beforeUpdate: async function(usuario) {
+        // Verificar si la contraseña fue modificada y no está vacía
+        if (usuario.changed('password') && usuario.password) {
+            const salt = await bcrypt.genSalt(10);
+            usuario.password = await bcrypt.hash(usuario.password, salt);
+        }
+        // Si la contraseña es null o una cadena vacía, el hook no hace nada
+    }
     
-      if (!existingUser) {
-          throw new Error("El usuario no existe.");
-      }
-  
-      if (!existingUser.confirmado) {
-          throw new Error("El usuario no está confirmado.");
-      }
-      //Genramos la clave para el hasheo, se recomiendan 1o rondas de
-      const salt=await bcrypt.genSalt(10)
-      usuario.password= await bcrypt.hash(usuario.password,salt);
-  }
   }   
 })
+
+
+//Meotodos Personalizados
+
+Usuario.prototype.verificarPassword= function(password){
+        return bcrypt.compareSync(password, this.password)
+
+} 
+
+
+
 
 export default Usuario 

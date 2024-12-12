@@ -12,6 +12,7 @@ import csrf from 'csurf';
 import cookieParser from 'cookie-parser';
 import generalrouter from'./Routes/generalrouter.js'
 import userroutes from'./Routes/userroutes.js'
+import propertiesRoutes from'./Routes/propertiesRoutes.js'
 import db from './config/db.js'
 const app = express()
 
@@ -56,6 +57,8 @@ console.log(`La aplicacion ha iniciado en el puerto: ${port}`);
 //si se coloca otro igual, con el moismo verbo, será ignorado el siguiente
 app.use('/',generalrouter)
 app.use('/usuario',userroutes);
+
+app.use('/',propertiesRoutes);
 
 
 
