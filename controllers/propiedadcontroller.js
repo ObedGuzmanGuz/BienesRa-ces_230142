@@ -17,10 +17,10 @@ const admin = async (req, res) => {
     res.render('properties/admin', {
       pagina: "Mis propiedades",
       msg: 
-      `Bienvenido  a Bienes Raíces ${usuario.nombre}`
+      `Bienvenido  a Bienes Raices ${usuario.nombre}`
     });
   } catch (error) {
-    console.error("Error en la función admin:", error);
+    console.error("Error en la funcion admin:", error);
     return res.redirect('/auth/login');
   }
 };
