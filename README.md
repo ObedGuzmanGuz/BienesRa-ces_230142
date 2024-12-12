@@ -16,7 +16,8 @@ Para poder demostrar y aprender la creacion y consumo de Interfaces de programac
 |10.|23/10/2024|Operaciones basicas de un API a traves de los Verbos htpp|12| Finalizada|
 |11.|05/11/2024|Implementacion de las pantallas de registro, logeo y recuperacion de contraseña|13| Finalizada|
 |12.|23/11/2024|Integración de Funcionalidad de Creación de Cuentas de Usuario|30|Finalizada|
-|13.|05/12/2024|Implementacion de la funcionalidad de la recuperacion de la contraseña|20|Activa|
+|13.|05/12/2024|Implementacion de la funcionalidad de la recuperacion de la contraseña|20|Finalizada|
+|14.|12/12/2024|Implementando autenticacion de usuarios|10|Activa|
 
 
 ### Tech Stack
@@ -26,7 +27,7 @@ Para poder demostrar y aprender la creacion y consumo de Interfaces de programac
 
 
 ### Autor 
-Creado por: **Obed Guzman Flores**   [@ObedGuzmanGuz](https://github.com/ObedGuzmanGuz)
+Creado por: **Obed Guzman Flores 4A DSM**   [@ObedGuzmanGuz](https://github.com/ObedGuzmanGuz)
 </br>
 
 Unidad 3:

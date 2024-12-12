@@ -1,16 +1,100 @@
  import { check, validationResult } from 'express-validator';
 import Usuario from '../models/Usuario.js'
-import { generatetId } from '../helpers/tokens.js';
+import {generateJWT, generatetId } from '../helpers/tokens.js';
 import {emailRegistro,emailChangePassword} from '../helpers/emails.js' 
 import { request, response } from 'express';
 import moment from 'moment';
 import { Result } from 'postcss';
 import { where } from 'sequelize';
+
+
+
+
 const formularioLogin =(request,response) => {
     response.render('auth/login',{
+      csrfToken: request.csrfToken(),
       page: 'iniciar Sesion'
     })
   };
+
+  const useratentication = async(req,res) =>{
+    //validacion
+
+    await check('email').notEmpty().withMessage('No es un Email').isEmail().withMessage('Correo campo obligatorio').run(req) 
+    
+     await check('password').notEmpty().withMessage('Contraseña campo obligatorio').isLength({min: 8}).withMessage('El password debe de ser de almenos 8 caracteres').run(req)   
+  
+     let resultado = validationResult(req)
+     if(!resultado.isEmpty()){
+      return res.render('auth/login',{
+        page: "Iniciar sesion...",
+        csrfToken: req.csrfToken(),
+        errores: resultado.array(),
+        
+      })
+
+    }
+
+    //comprobar si el usuario existe
+
+
+    const {email, password}= req.body
+
+    const usuario= await Usuario.findOne({where: {email}})
+     
+    if(!usuario){
+      return res.render('auth/login',{
+        page: "Iniciar sesion...",
+        csrfToken: req.csrfToken(),
+        errores: [{msg: "El usuario no existe"}]
+        
+      })
+    }
+
+
+    //comprobar si el usuario esta confirmado
+    if(!usuario.confirmado){
+      return res.render('auth/login',{
+        page: "Iniciar sesion...",
+        csrfToken: req.csrfToken(),
+        errores: [{msg: "Tu cuenta no ha sido confirmada"}]
+        
+      })
+
+    }
+
+   //Revisar el password
+
+   if(!usuario.verificarPassword(password)){
+    return res.render('auth/login',{
+      page: "Iniciar sesion...",
+      csrfToken: req.csrfToken(),
+      errores: [{msg: "El password es incorrecto"}]
+      
+    })
+   }
+
+   //Autenticar el usuario
+
+  const token= generateJWT({id:usuario.id, nombre: usuario.nombre}) 
+  
+   console.log(token)
+
+
+//Almacenar en un cookie
+
+
+return res.cookie('_token', token,{
+    httpOnly: true,
+    secure: true,
+    sameSite: true
+}).redirect('/my-properties')
+
+
+
+  }
+
+
 
 
   const formularioRegister =(request,response) => {
@@ -212,17 +296,16 @@ if(!usuario){
 
 
   //Registramos los datos en la base de datos.
-
-      existingUser.password= " ";
+      existingUser.password= "";
       existingUser.token= generatetId();
-    await existingUser.save();
+     await existingUser.save();
 
 //Enviar el correo de confirmacion
 
 emailChangePassword({
-  name:existingUser.name,
-  email:existingUser.email,
-  token: existingUser.token
+ nombre: existingUser.nombre,
+      email:  existingUser.email,
+      token:  existingUser.token
   
 
 })
@@ -271,7 +354,7 @@ const verifyTokenPasswordChange= async(request, response) =>{
  
   response.render('auth/resetpassword', {
     csrfToken: request.csrfToken(),
-    page: 'Actualiza tu contraseñla  ',
+    page: 'Actualiza tu contraseña  ',
     msg: `Por favor ingresa tu nueva contraseña `
 
 
@@ -330,15 +413,9 @@ response.render('auth/confirmar-cuenta',{
 
 
 
-
-
-
-
-
-
-
-
 }
+
+
 
 
 
@@ -346,13 +423,15 @@ response.render('auth/confirmar-cuenta',{
 
   export  {
     formularioLogin, 
+    useratentication,
     formularioRegister, 
     registrar,
     confirmar,
     formularioPasswordRecovery,
     passwordReset,
     verifyTokenPasswordChange,
-    updatePassword
+    updatePassword,
+    
   }
 
 
